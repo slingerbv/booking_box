@@ -1,0 +1,38 @@
+<h5>
+    <%= t(:name) %>: <%= @booking.name %>
+</h5>
+<h5>
+    <%= t(:email) %>: <%= @booking.email %>
+</h5>
+<h5>
+    <%= t(:ph_no) %>: <%= @booking.ph_no %>
+</h5>
+<h5>
+    <%= t(:vol) %>: <%= @booking.vol %>
+</h5>
+<h5>
+    <%= t(:pickup) %>: <%= @booking.addr %>
+</h5>
+<h5>
+    <%= t(:pick_date) %>: <%= @booking.pick_date %>
+</h5>
+<h5>
+    <%= t(:dest) %>: <%= @booking.dest %>
+</h5>
+<h5>
+    <%= t(:del_date) %>: <%= @booking.del_date %>
+</h5>
+<h5>
+    <%= t(:park_zone) %>: <%= @booking.park_zone %>
+</h5>
+<h5>
+    <%= t(:length_rental) %>: <%= @booking.length_rental %>
+</h5>
+
+
+<h5>
+    <%= link_to t(:back), collection_url %>
+    | <%= link_to t("delete"), object_url(@inquiry), :confirm => t("confirm_delete"), :method => :delete %>
+</h5>
+ <div data-hook="admin_product_form_additional_fields"></div>
+</tr> 

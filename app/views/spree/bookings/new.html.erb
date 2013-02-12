@@ -1,0 +1,139 @@
+<% content_for :head do %>
+  <%#= formtastic_stylesheet_link_tag %>
+<% end %>
+
+<% content_for :page_title do %>
+  <%= @site_page.page_title rescue '' %>
+<% end %>
+
+<div class="booking_form">
+  <%= form_for @booking do |form| %>
+
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% @booking.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <tr>
+      <td>
+        <%= form.label "Name" %><br />
+      </td>
+      <td>
+        <%= form.text_field :name %>
+     </td>
+    </tr>
+    <tr>
+      <td> 
+        <%= form.label "Email" %><br />
+      </td>
+      <td>  
+      <%= form.text_field :email %>
+      </td>  
+    </tr> 
+    <tr>
+      <td>  
+      <%= form.label "Phone number" %><br />
+      </td>
+      <td>
+      <%= form.text_field :ph_no %>
+      </td>
+    </tr>  
+    <tr>
+      <td> 
+      <%= form.label "Number of boxes" %><br />
+      </td>
+      <td>
+      <%= form.text_field :vol %>
+      </td>
+    </tr>  
+    <tr>
+      <td>  
+      <%= form.label "Pickup address" %><br />
+      </td>
+      <td>
+      <%= form.text_field :addr %>
+      </td>
+    </tr>  
+    <tr>
+     <td>  
+      <%= form.label "Pickup date" %><br />
+     </td>
+     <td>
+      <%= form.text_field :pick_date,:class=>"booking_pick_date" %>
+     </td>
+    </tr>  
+    <tr>
+      <td>
+      <%= form.label "Delivery address" %><br />
+      </td>
+      <td>
+      <%= form.text_field :dest %>
+      </td>
+    </tr>  
+    <tr>
+      <td>
+      <%= form.label "Delivery date" %><br />
+      </td>
+      <td>
+      <%= form.text_field :del_date ,:class=>"booking_del_date"%>
+      </td>
+    </tr>
+    <tr>
+      <td> 
+      <%= form.label "Parking Zone" %><br />
+      </td>
+      <td>
+      <%= form.check_box :park_zone %>
+      </td>
+    </tr>  
+    <tr>
+      <td>
+      <%= form.label "Length of rental period" %><br />
+      </td>
+      <td>
+      <%= form.text_field :length_rental %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <%= link_to form.submit,update_cart_path %>
+      </td>
+    </tr>  
+  <% end %>
+</table>  
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+  jQuery(".booking_pick_date").datetimepicker({
+        //language:  'fr',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    minuteStep:15
+    });
+  jQuery(".booking_del_date").datetimepicker({
+        //language:  'fr',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    minuteStep:15
+    });
+});
+
+</script> 

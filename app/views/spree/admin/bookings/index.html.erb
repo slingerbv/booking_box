@@ -1,0 +1,61 @@
+
+<h1><%= t("listing_inquiries") %></h1>
+<h4><%= t(:admin_header_message) %></h4>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Pickup Address</th>
+    <th>Destination Address</th>
+    <th>Options</th>
+
+  </tr>
+<%#= Spree::Booking.all%>
+
+<% Spree::Booking.all.each do |booking| %>
+  <tr>
+    <td>
+      <%= link_to "#{booking.email}",object_url(booking) %>
+    </td>
+    <td>
+      <%= link_to "#{booking.name}",object_url(booking) %>
+    </td>
+    <td>
+     <%= link_to "#{booking.addr}",object_url(booking) %>
+    </td>
+     <td>
+     <%= link_to "#{booking.dest}",object_url(booking) %>
+    </td>
+    <td>
+      <%= link_to_delete booking %>
+    </td>
+
+  </tr>
+<% end %>
+</table>
+
+
+<%#= paginate(@bookings, :previous_label => "&#171; }", :next_label => "#{t('next')} &#187;") %>
+
+
+<% content_for :sidebar do %>
+    <div class="box">
+        <h3><%= t(:search) %></h3>
+        <%#= form_for(@search ,:url => admin_inquiries_path,:method => :get) do |f| %>
+            
+            <div data-hook="admin_inquiries_index_search">
+            <%#= hook :admin_inquiries_index_search, locals do %>
+                <p>
+                    <%= t("email") %><br/>
+                   
+                </p>
+            <%# end %>
+            </div>
+            <%#= hook :admin_inquiries_index_search_buttons, locals do %>
+            <div data-hook="admin_inquiries_index_search_buttons">
+              <p><%= button t("search") %></p>
+            </div>
+            <%# end %>
+        <% end %>
+    </div>
