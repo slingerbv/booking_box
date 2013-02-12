@@ -1,3 +1,3 @@
-module Spree::InquiriesHelper
+module Spree::BookingsHelper
 
 end

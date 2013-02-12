@@ -19,6 +19,7 @@ class Spree::Admin::BookingsController < Spree::Admin::ResourceController
   protected
 
   def collection
+    debugger
     return @collection if @collection.present?
     unless request.xhr?
       params[:q] ||= {}
