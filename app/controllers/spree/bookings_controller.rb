@@ -22,7 +22,7 @@ class Spree::BookingsController < Spree::BaseController
   end
 
   def index
-    #redirect_to(new_booking_url) unless params[:booking]
+    redirect_to(new_booking_url) unless params[:booking]
   end
 
 
