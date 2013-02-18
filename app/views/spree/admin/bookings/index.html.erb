@@ -11,7 +11,7 @@
     <th>Options</th>
 
   </tr>
-<%#= Spree::Booking.all%>
+
 
 <% Spree::Booking.all.each do |booking| %>
   <tr>
@@ -57,5 +57,7 @@
               <p><%= button t("search") %></p>
             </div>
             <%# end %>
+          Select Language for form:
+          <%= %>
         <% end %>
     </div>

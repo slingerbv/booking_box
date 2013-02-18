@@ -1,4 +1,4 @@
-class Spree::BookingsController < Spree::BaseController
+class Spree::BookingsController < Spree::OrdersController
 	helper 'spree/base'
 
 	def new
@@ -11,13 +11,21 @@ class Spree::BookingsController < Spree::BaseController
 
    def create
     @booking = Spree::Booking.new(params[:booking])
-    respond_to do |format|
-      if @booking.save
-        flash[:notice] = t(:on_booking)
-        format.html { redirect_to(@booking) }
-      else
-        format.html { render :action => "new" }
-      end
+    if @booking.save
+    ActionMailer::Base::UserMailer.delay({ :run_at => 2.minutes.from_now}).welcome_email(@booking)   
+      @product = @booking.find_product
+      @qty = @booking.find_duration
+      populator = Spree::OrderPopulator.new(current_order(true), current_currency)    
+        add_to_cart_params = {:variants =>{@product.master.id.to_s=>@qty.to_i}}
+        if populator.populate(add_to_cart_params)
+          fire_event('spree.cart.add')
+          fire_event('spree.order.contents_changed')
+          respond_with(@order) do |format|
+            format.html { redirect_to cart_path }
+          end
+        end
+       else
+       render :new 
     end
   end
 

@@ -1,118 +1,122 @@
+<% content_for :head do %>
+  <%#= formtastic_stylesheet_link_tag %>
+<% end %>
 
 <% content_for :page_title do %>
   <%= @site_page.page_title rescue '' %>
 <% end %>
 
 <div class="booking_form">
-  <%= form_for @booking do |form| %>
+<table>
+<%= semantic_form_for @booking do |f| %>
+  <%= f.inputs :name => "Basic" do %>
+    <tr>
+      <td>
+        <%= f.label :name %></br>
+      </td>
+      <td>
+        <%= f.input :name, :label =>false %>      
+      </td>    
+    </tr>
 
-  <% if @booking.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this book from being saved:</h2>
+    <tr>
+      <td>
+        <%= f.label :email %></br>
+      </td>
+      <td>
+        <%= f.input :email, :label =>false %>      
+      </td>    
+    </tr>
 
-      <ul>
-      <% @booking.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+    <tr>
+      <td>
+        <%= f.label :Phone ,:for=>"booking_ph_no" %></br>
+      </td>
+      <td>
+        <%= f.input :ph_no, :label =>false %>      
+     </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Number of boxes" ,:for=>:booking_vol %></br>
+      </td>
+      <td>
+        <%= f.input :vol, :label =>false, :as => :select,      :collection => 1..20 %>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Pickup address",:for=>:booking_addr %></br>
+      </td>
+      <td>
+        <%= f.input :addr, :label =>false %>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Delivery address" %></br>
+      </td>
+      <td>
+        <%= f.input :dest, :label =>false %>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Pickup date" ,:for=>"booking__pick_date" %></br>
+      </td>
+      <td>
+        <%= f.input :pick_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"}%>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Delivery date" %></br>
+      </td>
+      <td>
+        <%= f.input :del_date, :label =>false,:input_html =>{:class=>"booking_pick_date"} %>      
+      </td>    
+    </tr>
+
+
+    <tr>
+      <td>
+        <%= f.label "Parking Zone",:for =>"booking_park_zone"  %></br>
+      </td>
+      <td>
+        <%= f.input :park_zone, :label =>""%>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label "Length of rental period",:for=>"booking_length_rental" %></br>
+      </td>
+      <td>
+        <%= f.input :length_rental, :label =>false %>      
+      </td>    
+    </tr>
+
+    <% end %>
+        <%= f.actions do %>
+    <tr>
+      <td>
+        <%= f.action :submit, :as => :button %>
+      </td>
+      <td>
+       <%= f.action :cancel, :as => :link %>
+      </td>
+    </tr>
+
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <table>
-     <tr>
-      <td>
-        <%= form.label t(:recurring) %><br />
-      </td>
-      <td>
-        <%= form.radio_button :recurring,'yes' %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= form.label t(:name) %><br />
-      </td>
-      <td>
-        <%= form.text_field :name %>
-     </td>
-    </tr>
-    <tr>
-      <td> 
-        <%= form.label "E-mail" %><br />
-      </td>
-      <td>  
-      <%= form.text_field :email %>
-      </td>  
-    </tr> 
-    <tr>
-      <td>  
-      <%= form.label t(:phone_number) %><br />
-      </td>
-      <td>
-      <%= form.text_field :ph_no %>
-      </td>
-    </tr>  
-    <tr>
-      <td> 
-      <%= form.label t(:no_of_boxes) %><br />
-      </td>
-      <td>
-      <%= form.text_field :vol %>
-      </td>
-    </tr>  
-    <tr>
-      <td>  
-      <%= form.label t(:pick_up_addr) %><br />
-      </td>
-      <td>
-      <%= form.text_field :addr %>
-      </td>
-    </tr>  
-    <tr>
-     <td>  
-      <%= form.label t(:pick_up) %><br />
-     </td>
-     <td>
-      <%= form.text_field :pick_date,:class=>"booking_pick_date" %>
-     </td>
-    </tr>  
-    <tr>
-      <td>
-      <%= form.label t(:deli_addr) %><br />
-      </td>
-      <td>
-      <%= form.text_field :dest %>
-      </td>
-    </tr>  
-    <tr>
-      <td>
-      <%= form.label t(:deli_date) %><br />
-      </td>
-      <td>
-      <%= form.text_field :del_date ,:class=>"booking_del_date"%>
-      </td>
-    </tr>
-    <tr>
-      <td> 
-      <%= form.label t(:park) %><br />
-      </td>
-      <td>
-      <%= form.check_box :park_zone %>
-      </td>
-    </tr>  
-    <tr>
-      <td>
-      <%= form.label t(:rental_period) %><br />
-      </td>
-      <td>
-      <%= form.text_field :length_rental %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <%= link_to form.submit%>
-      </td>
-    </tr>  
-  <% end %>
-</table>  
+      
+<% end %>
+</table>
+
 </div>
 
 <script type="text/javascript">
@@ -128,16 +132,7 @@ $(document).ready(function() {
     forceParse: 0,
     minuteStep:15
     });
-  jQuery(".booking_del_date").datetimepicker({
-        //language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-    minuteStep:15
-    });
+  
 });
 
 </script> 
