@@ -12,7 +12,7 @@ class Spree::BookingsController < Spree::OrdersController
    def create
     @booking = Spree::Booking.new(params[:booking])
     if @booking.save
-    ActionMailer::Base::UserMailer.delay({ :run_at => 2.minutes.from_now}).welcome_email(@booking)   
+      ActionMailer::Base::UserMailer.delay({ :run_at => 2.minutes.from_now}).welcome_email(@booking)   
       @product = @booking.find_product
       @qty = @booking.find_duration
       populator = Spree::OrderPopulator.new(current_order(true), current_currency)    
