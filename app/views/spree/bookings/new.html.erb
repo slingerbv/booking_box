@@ -12,7 +12,7 @@
   <%= f.inputs :name => "Basic" do %>
     <tr>
       <td>
-        <%= f.label :name %></br>
+        <%= f.label t('booking.name') %></br>
       </td>
       <td>
         <%= f.input :name, :label =>false %>      
@@ -21,7 +21,7 @@
 
     <tr>
       <td>
-        <%= f.label :email %></br>
+        <%= f.label t('booking.email')%></br>
       </td>
       <td>
         <%= f.input :email, :label =>false %>      
@@ -30,7 +30,7 @@
 
     <tr>
       <td>
-        <%= f.label :Phone ,:for=>"booking_ph_no" %></br>
+        <%= f.label t('booking.phone_number') %></br>
       </td>
       <td>
         <%= f.input :ph_no, :label =>false %>      
@@ -39,16 +39,16 @@
 
     <tr>
       <td>
-        <%= f.label "Number of boxes" ,:for=>:booking_vol %></br>
+        <%= f.label t('booking.no_of_boxes') %></br>
       </td>
       <td>
-        <%= f.input :vol, :label =>false, :as => :select,      :collection => 1..20 %>      
+        <%= f.input :vol, :label =>false, :as => :select,:collection => 1..20 %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label "Pickup address",:for=>:booking_addr %></br>
+        <%= f.label t('booking.pick_up_address') %></br>
       </td>
       <td>
         <%= f.input :addr, :label =>false %>      
@@ -57,7 +57,7 @@
 
     <tr>
       <td>
-        <%= f.label "Delivery address" %></br>
+        <%= f.label t('booking.delivery_address') %></br>
       </td>
       <td>
         <%= f.input :dest, :label =>false %>      
@@ -66,7 +66,7 @@
 
     <tr>
       <td>
-        <%= f.label "Pickup date" ,:for=>"booking__pick_date" %></br>
+        <%= f.label t('booking.pick_up_date') %></br>
       </td>
       <td>
         <%= f.input :pick_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"}%>      
@@ -75,7 +75,7 @@
 
     <tr>
       <td>
-        <%= f.label "Delivery date" %></br>
+        <%= f.label t('booking.delivery_date') %></br>
       </td>
       <td>
         <%= f.input :del_date, :label =>false,:input_html =>{:class=>"booking_pick_date"} %>      
@@ -85,7 +85,7 @@
 
     <tr>
       <td>
-        <%= f.label "Parking Zone",:for =>"booking_park_zone"  %></br>
+        <%= f.label t('booking.parking_zone')  %></br>
       </td>
       <td>
         <%= f.input :park_zone, :label =>""%>      
@@ -94,7 +94,7 @@
 
     <tr>
       <td>
-        <%= f.label "Length of rental period",:for=>"booking_length_rental" %></br>
+        <%= f.label t('booking.length_of_rental') %></br>
       </td>
       <td>
         <%= f.input :length_rental, :label =>false %>      
