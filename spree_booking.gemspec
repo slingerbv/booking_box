@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_booking'
   s.version     = '1.3.1'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.summary     = 'Used for booking quotes'
+  s.description = 'Nothing right now'
   s.required_ruby_version = '>= 1.8.7'
 
    s.author    = 'Sivanand'
