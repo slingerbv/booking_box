@@ -2,13 +2,13 @@ class Spree::Booking < ActiveRecord::Base
    attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring
 
    validates :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental , :presence => true
-   
+
    validates_format_of :email, :with => /^.+@.+$/
 
 
   def find_duration
     order_porducts = []
-  	time_diff_components = Time.diff(Time.parse(self.del_date.to_s), Time.parse(self.pick_date.to_s))
+  	time_diff_components = Time.diff(Time.parse(self.delivery_date.to_s), Time.parse(self.pickup_date.to_s))
     if time_diff_components[:month]  > 0
         case time_diff_components[:month]
           when 1..2 then 
