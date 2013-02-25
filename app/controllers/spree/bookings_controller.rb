@@ -2,7 +2,8 @@ class Spree::BookingsController < Spree::OrdersController
 	helper 'spree/base'
 
 	def new
-		@booking = Spree::Booking.new({:addr => params[:post_code],:vol=>params[:volume],:pick_date=>params[:pick_date],:dest =>params[:dest_code],:del_date=>params[:del_date]})
+		@booking = Spree::Booking.new({:pickup_address => params[:post_code],:volume=>params[:volume],:pickup_date=>params[:pick_date],
+      :delivery_address =>params[:dest_code],:delivery_date=>params[:del_date]})
 	end
 
 	def show
@@ -12,6 +13,11 @@ class Spree::BookingsController < Spree::OrdersController
   def create
     @booking = Spree::Booking.new(params[:booking])
     if @booking.save
+      debugger
+     ActionMailer::Base::UserMailer.delay({ :run_at => 2.minutes.from_now}).welcome_email(@booking) 
+
+     
+     ActionMailer::Base::BookingMailer(booking_confirm).deliver
         @array_of_products_and_qty = @booking.find_duration
         @array_of_products_and_qty.each do |product|
             populator = Spree::OrderPopulator.new(current_order(true), current_currency)    

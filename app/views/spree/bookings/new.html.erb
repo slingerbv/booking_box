@@ -10,6 +10,16 @@
 <table>
 <%= semantic_form_for @booking do |f| %>
   <%= f.inputs :name => "Basic" do %>
+
+    <tr>
+      <td>
+        <%= f.label t('booking.recurring') %></br>
+      </td>
+      <td>
+        <%= f.input :recurring,:label =>""%>      
+      </td>    
+    </tr>
+
     <tr>
       <td>
         <%= f.label t('booking.name') %></br>
@@ -33,7 +43,7 @@
         <%= f.label t('booking.phone_number') %></br>
       </td>
       <td>
-        <%= f.input :ph_no, :label =>false %>      
+        <%= f.input :phone_number, :label =>false %>      
      </td>    
     </tr>
 
@@ -42,7 +52,7 @@
         <%= f.label t('booking.no_of_boxes') %></br>
       </td>
       <td>
-        <%= f.input :vol, :label =>false, :as => :select,:collection => 1..20 %>      
+        <%= f.input :volume, :label =>false, :as => :select,:collection => 1..20 %>      
       </td>    
     </tr>
 
@@ -51,7 +61,7 @@
         <%= f.label t('booking.pick_up_address') %></br>
       </td>
       <td>
-        <%= f.input :addr, :label =>false %>      
+        <%= f.input :pickup_address, :label =>false %>      
       </td>    
     </tr>
 
@@ -60,7 +70,7 @@
         <%= f.label t('booking.delivery_address') %></br>
       </td>
       <td>
-        <%= f.input :dest, :label =>false %>      
+        <%= f.input :delivery_address, :label =>false %>      
       </td>    
     </tr>
 
@@ -69,7 +79,7 @@
         <%= f.label t('booking.pick_up_date') %></br>
       </td>
       <td>
-        <%= f.input :pick_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"}%>      
+        <%= f.input :pickup_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"}%>      
       </td>    
     </tr>
 
@@ -78,7 +88,7 @@
         <%= f.label t('booking.delivery_date') %></br>
       </td>
       <td>
-        <%= f.input :del_date, :label =>false,:input_html =>{:class=>"booking_pick_date"} %>      
+        <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"booking_pick_date"} %>      
       </td>    
     </tr>
 
@@ -88,7 +98,7 @@
         <%= f.label t('booking.parking_zone')  %></br>
       </td>
       <td>
-        <%= f.input :park_zone, :label =>""%>      
+        <%= f.input :parking_zone, :label =>""%>      
       </td>    
     </tr>
 
