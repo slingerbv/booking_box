@@ -1,7 +1,7 @@
 class Spree::Booking < ActiveRecord::Base
-   attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring
+   attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating
 
-   validates :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental , :presence => true
+   validates :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:length_rental , :presence => true
 
    validates_format_of :email, :with => /^.+@.+$/
 

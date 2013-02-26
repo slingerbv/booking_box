@@ -56,6 +56,15 @@
       </td>    
     </tr>
 
+     <tr>
+      <td>
+        <%= f.label "Renting",:for=>:booking_rating %></br>
+      </td>
+      <td>
+        <%= f.input :rating, :label =>false, :as => :select, :collection => 1..4 %>      
+      </td>    
+    </tr>
+
     <tr>
       <td>
         <%= f.label t('booking.pick_up_address') %></br>
@@ -134,13 +143,15 @@
 $(document).ready(function() {
   jQuery(".booking_pick_date").datetimepicker({
         //language:  'fr',
+    startDate: "<%= Time.now.to_formatted_s(:db)%>",    
     weekStart: 1,
     todayBtn:  1,
     autoclose: 1,
     todayHighlight: 1,
     startView: 2,
     forceParse: 0,
-    minuteStep:15
+    minuteStep:15,
+
     });
   
 });

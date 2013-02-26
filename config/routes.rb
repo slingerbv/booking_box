@@ -2,9 +2,13 @@ Spree::Core::Engine.routes.append do
   resources :bookings
 
   namespace :admin do
-    resources :bookings
+    resources :bookings do
+    	collection do
+    		get 'next_month_bookings'
+    	end
+    end
   end
 
 
-  # Add your extension routes here
+ 
 end
