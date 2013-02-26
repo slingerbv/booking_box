@@ -40,6 +40,15 @@
 
     <tr>
       <td>
+        <%= f.label "Renting",:for=>:booking_rating %></br>
+      </td>
+      <td>
+        <%= f.input :rating, :label =>false, :as => :select, :collection => 1..4 %>      
+      </td>    
+    </tr>
+
+    <tr>
+      <td>
         <%= f.label t('booking.phone_number') %></br>
       </td>
       <td>
@@ -56,14 +65,7 @@
       </td>    
     </tr>
 
-     <tr>
-      <td>
-        <%= f.label "Renting",:for=>:booking_rating %></br>
-      </td>
-      <td>
-        <%= f.input :rating, :label =>false, :as => :select, :collection => 1..4 %>      
-      </td>    
-    </tr>
+     
 
     <tr>
       <td>
@@ -88,7 +90,7 @@
         <%= f.label t('booking.pick_up_date') %></br>
       </td>
       <td>
-        <%= f.input :pickup_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"}%>      
+        <%= f.input :pickup_date, :label =>false ,:input_html =>{:class=>"booking_pick_date"} %>         
       </td>    
     </tr>
 
@@ -97,7 +99,7 @@
         <%= f.label t('booking.delivery_date') %></br>
       </td>
       <td>
-        <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"booking_pick_date"} %>      
+        <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"booking_deliver_date"} %>            
       </td>    
     </tr>
 
@@ -138,22 +140,35 @@
 
 </div>
 
+
 <script type="text/javascript">
+  function convertDateTime(dTime){
+      dateTime = dTime.replace(/-/g,"/")      
+      if (dateTime){ 
+        dateTime = new Date(dateTime.toString())
+        dateTime.setDate(dateTime.getDate()+3);
+        return dateTime;
+      }else{
+        return false;
+      }
+  }
+  jQuery(document).ready(function() {
+    var startdate = jQuery("#booking_pickup_date").datetimepicker({
+      startDate: "<%= Time.now.to_formatted_s(:db) %>",
+      autoclose:true
+    }).on('changeDate', function(ev){        
+      if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
+          jQuery("#booking_delivery_date").val('')
+      }});
+    var enddate = jQuery("#booking_delivery_date").datetimepicker({startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
 
-$(document).ready(function() {
-  jQuery(".booking_pick_date").datetimepicker({
-        //language:  'fr',
-    startDate: "<%= Time.now.to_formatted_s(:db)%>",    
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-    minuteStep:15,
+      var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
 
+      if (start_date)
+      {
+        $('#booking_delivery_date').datetimepicker('setStartDate',start_date);
+      }
     });
-  
 });
 
 </script> 
