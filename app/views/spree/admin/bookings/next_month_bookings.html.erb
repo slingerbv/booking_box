@@ -1,0 +1,33 @@
+<h2>Next month bookings</h2>
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Pickup Address</th>
+    <th>Destination Address</th>
+
+  </tr>
+
+
+<% @next_month_bookings.each do |next_month_booking| %>
+  <tr>
+
+    <td>
+      <%= link_to "#{next_month_booking.email}" %>
+    </td>
+    <td>
+      <%= "#{next_month_booking.name}" %>
+    </td>
+    <td>
+     <%=  "#{next_month_booking.pickup_address}" %>
+    </td>
+     <td>
+     <%= "#{next_month_booking.delivery_address}" %>
+    </td>
+
+  </tr>
+<% end %>
+</table>
+
+<%= link_to "print","#"  %>
+
