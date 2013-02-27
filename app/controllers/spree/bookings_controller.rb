@@ -1,16 +1,17 @@
 class Spree::BookingsController < Spree::OrdersController
-	helper 'spree/base'
+  helper 'spree/base'
 
-	def new
-		@booking = Spree::Booking.new({:pickup_address => params[:post_code],:volume=>params[:volume],:pickup_date=>params[:pick_date],
+  def new
+    @booking = Spree::Booking.new({:pickup_address => params[:post_code],:volume=>params[:volume],:pickup_date=>params[:pick_date],
       :delivery_address =>params[:dest_code],:delivery_date=>params[:del_date]})
-	end
+  end
 
-	def show
+  def show
     @booking = Spree::Booking.find_by_id(params[:id])
   end
 
   def create
+
     @booking = Spree::Booking.new(params[:booking])
     if @booking.save
         @array_of_products_and_qty = @booking.find_duration

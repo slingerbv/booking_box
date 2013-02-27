@@ -1,34 +1,57 @@
-<table>
+<h2> List of all bookings</h2> 
+<%= link_to "Bookings for next month", next_month_bookings_admin_bookings_path %>
+<table style="margin-top:20px;">
   <tr>
-    <th>Email</th>
-    <th>Name</th>
+    <th> Pickup date </th>
+    <th> Delivery date </th>
     <th>Pickup Address</th>
     <th>Destination Address</th>
-    <th>Options</th>
+    <th> Volume </th>
+    <th> Phone number </th>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Renting</th>
 
   </tr>
 
 
 <% @bookings.each do |booking| %>
   <tr>
+    <td>
+      <%= Time.zone.parse(booking.pickup_date).strftime("%I:%M%P %b %d") %>
+    </td>  
 
     <td>
-      <%= link_to "#{booking.email}" %>
-    </td>
-    <td>
-      <%= "#{booking.name}" %>
-    </td>
-    <td>
-     <%=  "#{booking.pickup_address}" %>
-    </td>
-     <td>
-     <%= "#{booking.delivery_address}" %>
-    </td>
-    <td>
-      <%= link_to "delete",admin_booking_path(booking), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= Time.zone.parse(booking.delivery_date).strftime("%I:%M%P %b %d") %>
+    </td> 
 
-  </tr>
+    <td>
+     <%=  booking.pickup_address %>
     </td>
+
+    <td>
+     <%= booking.delivery_address %>
+    </td>
+
+    <td>
+     <%= booking.volume %>
+    </td>
+
+    <td>
+     <%= booking.phone_number %>
+    </td>
+
+    <td>
+      <%= booking.email %>
+    </td>
+    
+    <td>
+      <%= booking.name %>
+    </td>
+    
+    <th>
+      <%= booking.rating %>
+    </th>     
 
   </tr>
 <% end %>
@@ -39,9 +62,4 @@
 
 
 
-<% content_for :sidebar do %>
-  <div class="box">
-    <h5>View Next Month Bookings</h5>
-      <%= button_link_to "VISIT", next_month_bookings_admin_bookings_path %>
-   </div>     
-<% end %>
+  
