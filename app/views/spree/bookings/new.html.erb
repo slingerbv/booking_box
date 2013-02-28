@@ -218,7 +218,9 @@
       }});
     var enddate = jQuery("#booking_delivery_date").datetimepicker({
       minuteStep: 15,
-      startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
+       startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
+       autoclose:true}).on("click", 
+       function(ev){
 
       var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
 
