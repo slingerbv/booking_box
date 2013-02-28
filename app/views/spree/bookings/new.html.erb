@@ -9,7 +9,7 @@
 <div class="booking_form">
 <table>
 <%= semantic_form_for @booking do |f| %>
-  <%= f.inputs :name => "Basic" do %>
+  <%= f.inputs :name => "Booking Form" do %>
 
     <tr>
       <td>
@@ -67,23 +67,77 @@
 
      
 
-    <tr>
-      <td>
-        <%= f.label t('booking.pick_up_address') %></br>
-      </td>
-      <td>
-        <%= f.input :pickup_address, :label =>false %>      
-      </td>    
-    </tr>
+    
 
     <tr>
       <td>
-        <%= f.label t('booking.delivery_address') %></br>
+        <%= f.label t('booking.pickup_address_streetname_and_number') %></br>
       </td>
       <td>
-        <%= f.input :delivery_address, :label =>false %>      
+        <%= f.input :pickup_address_streetname_and_number, :label =>false %>      
       </td>    
     </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_postal_code') %></br>
+      </td>
+      <td>
+        <%= f.input :pickup_address_postal_code, :label =>false %>      
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_country') %></br>
+      </td>
+      <td>
+        <%= f.country_select :pickup_address_country,priority: %w(DE US), :label =>false %>      
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_city') %></br>
+      </td>
+      <td>
+        <%= f.input :pickup_address_city, :label =>false %>      
+      </td>    
+    </tr>
+
+
+    
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_streetname_and_number') %></br>
+      </td>
+      <td>
+        <%= f.input :delivery_address_streetname_and_number, :label =>false %>      
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_postal_code') %></br>
+      </td>
+      <td>
+        <%= f.input :delivery_address_postal_code, :label =>false %>      
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_country') %></br>
+      </td>
+      <td>
+        <%= f.country_select :delivery_address_country,priority: %w(DE US), :label =>false %>      
+      </td>    
+    </tr>
+    
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_city') %></br>
+      </td>
+      <td>
+        <%= f.input :delivery_address_city, :label =>false %>      
+      </td>    
+    </tr>
+  
 
     <tr>
       <td>
@@ -133,12 +187,13 @@
       </td>
     </tr>
 
-      <% end %>
+  <% end %>
       
 <% end %>
 </table>
 
 </div>
+
 
 
 <script type="text/javascript">
@@ -154,13 +209,16 @@
   }
   jQuery(document).ready(function() {
     var startdate = jQuery("#booking_pickup_date").datetimepicker({
-      startDate: "<%= Time.now.to_formatted_s(:db) %>",
+      minuteStep: 15,
+      startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
       autoclose:true
     }).on('changeDate', function(ev){        
       if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
           jQuery("#booking_delivery_date").val('')
       }});
-    var enddate = jQuery("#booking_delivery_date").datetimepicker({startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
+    var enddate = jQuery("#booking_delivery_date").datetimepicker({
+      minuteStep: 15,
+      startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
 
       var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
 
@@ -171,4 +229,4 @@
     });
 });
 
-</script>
+</script> 
