@@ -5,6 +5,17 @@ class Spree::Booking < ActiveRecord::Base
 
    validates_format_of :email, :with => /^.+@.+$/
 
+    def self.search(search)
+
+    if search
+     
+      where(:pickup_date => (search["start_date"].to_date)..(search["end_date"].to_date))
+     
+    else
+      scoped
+    end
+  end
+
 
   def find_duration
     order_porducts = []

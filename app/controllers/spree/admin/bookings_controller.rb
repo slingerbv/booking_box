@@ -2,11 +2,20 @@ class Spree::Admin::BookingsController < Spree::Admin::BaseController
 
 
 
-  def index
-    @bookings = Spree::Booking.all
+    def index
+     @bookings = Spree::Booking.all
+     if !params[:search].blank? 
+        if !params[:search]["start_date"].blank? && !params[:search]["end_date"].blank?
+          @bookings =  Spree::Booking.search(params[:search]) 
+        else
+          @bookings = []
+        end  
+     end        
+
     respond_to do |format|
       format.html 
       format.json { render json: @bookings }
+
     end
   end
 
