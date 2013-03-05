@@ -1,6 +1,10 @@
 Spree::Core::Engine.routes.append do
-  resources :bookings
-
+  resources :bookings do 
+  	 collection do 
+  	 	 get "find_pickup_city"
+       get "find_delivery_city"
+  	 end
+  end
   namespace :admin do
     resources :bookings do
     	collection do

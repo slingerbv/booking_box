@@ -6,10 +6,12 @@
   <%= @site_page.page_title rescue '' %>
 <% end %>
 
+
+
 <div class="booking_form">
 <table>
 <%= semantic_form_for @booking do |f| %>
-  <%= f.inputs :name => "Basic" do %>
+  <%= f.inputs :name => "Booking Form" do %>
 
     <tr>
       <td>
@@ -65,25 +67,74 @@
       </td>    
     </tr>
 
-     
-
     <tr>
       <td>
-        <%= f.label t('booking.pick_up_address') %></br>
+        <%= f.label t('booking.pickup_address_streetname_and_number') %></br>
       </td>
       <td>
-        <%= f.input :pickup_address, :label =>false %>      
+        <%= f.input :pickup_address_streetname_and_number, :label =>false %>      
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_postal_code') %></br>
+      </td>
+      <td>
+        <%= f.select :pickup_address_postal_code, options_for_select(@booking_postal_codes.map { |e| e.booking_postal_codes_id })%> 
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_country') %></br>
+      </td>
+      <td>   
+        <%=f.select :pickup_address_country, options_for_select(@booking_countries.map { |e| [e.name,e.id] },["Germany","#{@default_country.id}"])%> 
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.pickup_address_city') %></br>
+      </td>
+      <td>
+
+         <%= f.select :pickup_address_city,options_for_select(@booking_city.map{ |e| e.name },["Munich"])%> 
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label t('booking.delivery_address') %></br>
+        <%= f.label t('booking.delivery_address_streetname_and_number') %></br>
       </td>
       <td>
-        <%= f.input :delivery_address, :label =>false %>      
+        <%= f.input :delivery_address_streetname_and_number, :label =>false %>      
       </td>    
     </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_postal_code') %></br>
+      </td>
+      <td>
+         <%= f.select :delivery_address_postal_code, options_for_select(@booking_postal_codes.map { |e| e.booking_postal_codes_id })%> 
+      </td>    
+    </tr>
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_country') %></br>
+      </td>
+      <td>
+       <%=f.select :delivery_address_country, options_for_select(@booking_countries.map { |e| [e.name,e.id] },["Germany","#{@default_country.id}"])%> 
+      </td>    
+    </tr>
+    
+    <tr>
+      <td>
+        <%= f.label t('booking.delivery_address_city') %></br>
+      </td>
+      <td>
+        <%= f.select :delivery_address_city,options_for_select(@booking_city.map{ |e| e.name },"Munich")%>
+      </td>    
+    </tr>
+  
 
     <tr>
       <td>
@@ -133,12 +184,13 @@
       </td>
     </tr>
 
-      <% end %>
+  <% end %>
       
 <% end %>
 </table>
 
 </div>
+
 
 
 <script type="text/javascript">
@@ -152,15 +204,20 @@
         return false;
       }
   }
+
+
   jQuery(document).ready(function() {
     var startdate = jQuery("#booking_pickup_date").datetimepicker({
-      startDate: "<%= Time.now.to_formatted_s(:db) %>",
+      minuteStep: 15,
+      startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
       autoclose:true
     }).on('changeDate', function(ev){        
       if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
           jQuery("#booking_delivery_date").val('')
       }});
-    var enddate = jQuery("#booking_delivery_date").datetimepicker({startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
+      var enddate = jQuery("#booking_delivery_date").datetimepicker({
+      minuteStep: 15,
+      startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
 
       var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
 
@@ -169,6 +226,26 @@
         $('#booking_delivery_date').datetimepicker('setStartDate',start_date);
       }
     });
-});
 
-</script>
+
+    $('#booking_pickup_address_country').change(function() {
+       $.ajax({ 
+        type: "GET",
+        data: {booking_country_id:$(this).val()},
+        url: "/bookings/find_pickup_city",
+        dataType: "script"
+      });
+      });
+    $('#booking_pickup_address_country').trigger('change')
+
+    $('#booking_delivery_address_country').change(function() {
+      $.ajax({ 
+        type: "GET",
+        data: {booking_country_id:$(this).val()},
+        url: "/bookings/find_delivery_city",
+        dataType: "script"
+      });
+      });
+    $('#booking_delivery_address_country').trigger('change')
+});
+</script> 
