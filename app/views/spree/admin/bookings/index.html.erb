@@ -1,5 +1,17 @@
 <h2> List of all bookings</h2> 
 <%= link_to "Bookings for next month", next_month_bookings_admin_bookings_path %>
+
+
+<%= form_tag admin_bookings_path ,:method=>"get" do %>
+  <p>
+    <p>Start Date
+    <%= text_field_tag("search[start_date]", !params[:search].blank? && !params[:search]["start_date"].blank? ?  params[:search]["start_date"] : "", :class => 'datepicker')  %>
+    
+     End Date 
+    <%= text_field_tag( "search[end_date]", !params[:search].blank? && !params[:search]["end_date"].blank? ?  params[:search]["end_date"] : "" , :class => 'datepicker') %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
 <table style="margin-top:20px;">
   <tr>
     <th> Pickup date </th>

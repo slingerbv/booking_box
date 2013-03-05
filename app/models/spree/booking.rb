@@ -1,9 +1,22 @@
 class Spree::Booking < ActiveRecord::Base
    attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country
 
-   validates :name,:pickup_date,:delivery_date,:volume,:phone_number,:email, :presence => true
+
+   validates :name,:pickup_date,:delivery_date,:volume,:phone_number,:email,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country, :presence => true
+
 
    validates_format_of :email, :with => /^.+@.+$/
+
+    def self.search(search)
+
+    if search
+     
+      where(:pickup_date => (search["start_date"].to_date)..(search["end_date"].to_date))
+     
+    else
+      scoped
+    end
+  end
 
 
   def find_duration

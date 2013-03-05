@@ -98,9 +98,12 @@
       <td>
 
          <%= f.select :pickup_address_city,options_for_select(@booking_city.map{ |e| e.name },["Munich"])%> 
+
       </td>    
     </tr>
 
+
+    
     <tr>
       <td>
         <%= f.label t('booking.delivery_address_streetname_and_number') %></br>
@@ -215,9 +218,11 @@
       if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
           jQuery("#booking_delivery_date").val('')
       }});
-      var enddate = jQuery("#booking_delivery_date").datetimepicker({
+
+    var enddate = jQuery("#booking_delivery_date").datetimepicker({
       minuteStep: 15,
-      startDate:"<%= Time.now.to_formatted_s(:db) %>",autoclose:true}).on("click", function(ev){
+       startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
+       autoclose:true}).on("click",function(ev){
 
       var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
 
@@ -236,7 +241,7 @@
         dataType: "script"
       });
       });
-    $('#booking_pickup_address_country').trigger('change')
+   //('#booking_pickup_address_country').trigger('change')
 
     $('#booking_delivery_address_country').change(function() {
       $.ajax({ 
@@ -246,6 +251,7 @@
         dataType: "script"
       });
       });
-    $('#booking_delivery_address_country').trigger('change')
+   //('#booking_delivery_address_country').trigger('change')
 });
 </script> 
+
