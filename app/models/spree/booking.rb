@@ -2,7 +2,7 @@ class Spree::Booking < ActiveRecord::Base
    attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country
 
 
-   validates :name,:pickup_date,:delivery_date,:volume,:phone_number,:email,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country, :presence => true
+   validates :name,:pickup_date,:delivery_date,:email,:phone_number,:pickup_address_streetname_and_number,:delivery_address_streetname_and_number,:length_rental, :presence => true
 
 
    validates_format_of :email, :with => /^.+@.+$/
@@ -21,7 +21,7 @@ class Spree::Booking < ActiveRecord::Base
 
   def find_duration
     order_porducts = []
-  	time_diff_components = Time.diff(Time.parse(self.delivery_date.to_s), Time.parse(self.pickup_date.to_s))
+    time_diff_components = Time.diff(Time.parse(self.delivery_date.to_s), Time.parse(self.pickup_date.to_s))
     if time_diff_components[:month]  > 0
         case time_diff_components[:month]
           when 1..2 then 
