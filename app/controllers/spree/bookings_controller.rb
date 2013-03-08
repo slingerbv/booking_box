@@ -1,11 +1,8 @@
 class Spree::BookingsController < Spree::OrdersController
   helper 'spree/base'
+  before_filter :state_city ,:only=>[:new , :create]
 
   def new
-    @booking_countries = BookingCountry.all
-    @booking_postal_codes = BookingPostalCode.all
-    @default_country = BookingCountry.find_by_name("Germany")
-    @booking_city = BookingCity.where(:booking_country_id=>@default_country.id)
     @booking = Spree::Booking.new({:pickup_address => params[:post_code],:volume=>params[:volume],:pickup_date=>params[:pick_date],
       :delivery_address =>params[:dest_code],:delivery_date=>params[:del_date]})
     respond_to do |format|
@@ -14,13 +11,11 @@ class Spree::BookingsController < Spree::OrdersController
       end
   end
 
-
-
   def show
     @booking = Spree::Booking.find_by_id(params[:id])
   end
 
-  def create    
+  def create  
     @booking = Spree::Booking.new(params[:booking])
     if @booking.save
         @array_of_products_and_qty = @booking.find_duration
@@ -37,7 +32,6 @@ class Spree::BookingsController < Spree::OrdersController
         format.html { redirect_to cart_path }
         format.js
        end      
-
     else
         render :new 
     end
@@ -59,6 +53,15 @@ class Spree::BookingsController < Spree::OrdersController
     respond_to do |format|
      format.js
     end
+  end
+
+  protected
+
+  def state_city
+    @booking_countries = BookingCountry.all
+    @booking_postal_codes = BookingPostalCode.all
+    @default_country = BookingCountry.find_by_name("Germany")
+    @booking_city = BookingCity.where(:booking_country_id=>@default_country.id)
   end
 
 
