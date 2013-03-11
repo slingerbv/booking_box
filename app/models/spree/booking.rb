@@ -66,4 +66,9 @@ class Spree::Booking < ActiveRecord::Base
     end  
     order_porducts
   end
+
+ def parking_permit
+    OrderSetting.first.parking_permit
+  end
+
 end
