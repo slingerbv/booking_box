@@ -1,3 +1,5 @@
+<p style="margin-top:13px;font-weight:bold;">"Do you already know for how long you would like to store your belongings, or would you prefer to remain flexible? Orders for a storage duration of more than 3 months receive a 25 % rebate, those of more than 6 months, 30%, more than 1 year 35% and more than 2 years 40%!" </p>
+
 <% content_for :head do %>
   <%#= formtastic_stylesheet_link_tag %>
 <% end %>
@@ -7,12 +9,16 @@
 <% end %>
 
 
-
 <div class="booking_form">
 <table>
 <%= semantic_form_for @booking do |f| %>
   <%= f.inputs :name => "Booking Form" do %>
-
+  <tr>
+    <td> 
+     <p> <%= f.radio_button :booking_type, 'every_month' %> <%= f.label "You pay every month", "You pay every month" %>
+     <%= f.radio_button :booking_type, 'select_time' %> <%= f.label "person_country_canada","You can decide up front how long you wish to rent, using our cool date pickers" %></p>
+    </td> 
+   </tr>
     <tr>
       <td>
         <%= f.label t('booking.recurring') %></br>

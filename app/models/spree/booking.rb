@@ -1,5 +1,5 @@
 class Spree::Booking < ActiveRecord::Base
-   attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country
+   attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country,:booking_type
 
 
    validates :name,:pickup_date,:delivery_date,:email,:phone_number,:pickup_address_streetname_and_number,:delivery_address_streetname_and_number,:length_rental, :presence => true

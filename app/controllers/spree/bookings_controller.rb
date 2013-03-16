@@ -3,12 +3,12 @@ class Spree::BookingsController < Spree::OrdersController
   before_filter :state_city ,:only=>[:new , :create]
 
   def new
-    @booking = Spree::Booking.new({:pickup_address => params[:post_code],:volume=>params[:volume],:pickup_date=>params[:pick_date],
-      :delivery_address =>params[:dest_code],:delivery_date=>params[:del_date]})
+    debugger
+    @booking = Spree::Booking.new({:phone_number => current_user.phone,:email=>current_user.email,:name=>current_user.name,:rating=>session[:booking_rating]})
     respond_to do |format|
         format.html 
         format.js
-      end
+    end
   end
 
   def show
