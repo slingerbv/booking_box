@@ -1,0 +1,88 @@
+
+<% content_for :head do %>
+  <%#= formtastic_stylesheet_link_tag %>
+<% end %>
+
+<% content_for :page_title do %>
+  <%= @site_page.page_title rescue '' %>
+<% end %>
+
+
+<div class="booking_form">
+<table>
+<%= semantic_form_for @booking,:url=>post_additional_services_booking_path do |f| %>
+
+  <%= f.inputs :name => "Additional services" do %>
+    <tr>
+      <td>
+        <%= f.label "Creating a no-parking zone"  %>
+        In order to receive the legal permit from the city in due time, we require a minimum of 5 business days prior to delivery or pickup</br>
+      </td>
+       <td>
+        <%= f.input :parking_zone, :label =>"" %> 
+       </td>    
+    </tr> 
+
+    <tr>
+      <td>
+        <%= f.label "place the no-parking zone"  %>
+      </td>  
+      <td>
+        <%= f.select :parking_place, [ 'in fron of entrance', 'in front of building', 'in traffice direction'], :prompt => 'Select One' %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+        <%= f.label "comments"  %>
+      </td>  
+      <td>
+        <%= f.input :comment %>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+        <%= f.label "Packaging"  %>
+      </td>  
+      <td>
+        <%= f.select :packaging, [ 'Moving boxes', 'Moving boxes specificaly for books ', 'Movin for storage  
+         ','Clothes boxes','','duct tape','unwinder','bubble wrap','matrasse covers for single bed','','matrasse covers for double bed','move covers','Small package','Middle Package','Large Package'], :prompt => 'Select One package' %>
+      </td>
+    </tr>
+
+
+
+  
+    <% end %>
+        <%= f.actions do %>
+    <tr>
+      <td>
+        <%= f.action :submit, :as => :button %>
+      </td>
+      <td>
+       <%= link_to "next",booking_payment_booking_path %>
+      </td>
+
+      <td>
+       <%= f.action :cancel, :as => :link %>
+      </td>
+     
+    </tr>
+
+  <% end %>
+      
+<% end %>
+</table>
+
+</div>
+
+
+<style>
+
+#booking_parking_zone{
+  /*margin-bottom: 24px;*/
+}
+</style>
