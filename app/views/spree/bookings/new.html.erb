@@ -1,4 +1,4 @@
-<p style="margin-top:13px;font-weight:bold;">"Do you already know for how long you would like to store your belongings, or would you prefer to remain flexible? Orders for a storage duration of more than 3 months receive a 25 % rebate, those of more than 6 months, 30%, more than 1 year 35% and more than 2 years 40%!" </p>
+<p >"Do you already know for how long you would like to store your belongings, or would you prefer to remain flexible? Orders for a storage duration of more than 3 months receive a 25 % rebate, those of more than 6 months, 30%, more than 1 year 35% and more than 2 years 40%!" </p>
 
 <% content_for :head do %>
   <%#= formtastic_stylesheet_link_tag %>
@@ -11,14 +11,14 @@
 
 <div class="booking_form">
 <table>
-<%= semantic_form_for @booking do |f| %>
-  <%= f.inputs :name => "Booking Form" do %>
-  <tr>
-    <td> 
-     <p> <%= f.radio_button :booking_type, 'every_month' %> <%= f.label "You pay every month", "You pay every month" %>
-     <%= f.radio_button :booking_type, 'select_time' %> <%= f.label "person_country_canada","You can decide up front how long you wish to rent, using our cool date pickers" %></p>
-    </td> 
-   </tr>
+  <%= semantic_form_for @booking do |f| %>
+    <tr>
+      <td> 
+       <p style= "display: inline-block">
+        <%= f.radio_button :booking_type, 'every_month' %> <%= f.label "I know how long I would like to store my items", "I know how long I would like to store my items" %>
+        <%= f.radio_button :booking_type, 'select_time' %> <%= f.label "I would like to start with just 4 weeks and then decice later","I would like to start with just 4 weeks and then decice later" %></p>
+      </td> 
+    </tr>
     <tr>
       <td>
         <%= f.label t('booking.recurring') %></br>
@@ -64,14 +64,7 @@
      </td>    
     </tr>
 
-    <tr>
-      <td>
-        <%= f.label t('booking.no_of_boxes') %></br>
-      </td>
-      <td>
-        <%= f.input :volume, :label =>false, :as => :select,:collection => 1..20 %>      
-      </td>    
-    </tr>
+
 
     <tr>
       <td>
@@ -118,6 +111,7 @@
         <%= f.input :delivery_address_streetname_and_number, :label =>false %>      
       </td>    
     </tr>
+
     <tr>
       <td>
         <%= f.label t('booking.delivery_address_postal_code') %></br>
@@ -126,6 +120,7 @@
          <%= f.select :delivery_address_postal_code, options_for_select(@booking_postal_codes.map { |e| e.booking_postal_codes_id })%> 
       </td>    
     </tr>
+
     <tr>
       <td>
         <%= f.label t('booking.delivery_address_country') %></br>
@@ -143,16 +138,16 @@
         <%= f.select :delivery_address_city,options_for_select(@booking_city.map{ |e| e.name },"Munich")%>
       </td>    
     </tr>
+
     <tr>
       <td>
         <%= f.label "No-parking zone"  %></br>
       </td>
        <td>
         <%= f.input :parking_zone, :label =>""%> 
-        <div class="message1"><span style="color:red"><%= "you need"+' '+"#{@booking.parking_permit}"+' '+"days to request a parking permit" %><small></small></span></div>
-      </td>    
+        <!-- <div class="message1"><span style="color:red"><%#= "you need"+' '+"#{@booking.parking_permit}"+' '+"days to request a parking permit" %><small></small></span></div>
+      </td>     -->
     </tr> 
-  
 
     <tr>
       <td>
@@ -170,10 +165,8 @@
       <td>
         <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"booking_deliver_date"} %>            
       </td>    
-    </tr>
+    </tr> 
 
-
-   
     <tr>
       <td>
         <%= f.label t('booking.length_of_rental') %></br>
@@ -181,119 +174,23 @@
       <td>
         <%= f.input :length_rental, :label =>false %>      
       </td>    
-    </tr>
-
-     
-
+    </tr>   
+  
+    <%= f.actions do %>
+      <tr>
+        <td>
+          <%= f.action :submit, :as => :button %>
+        </td>
+        <td>
+         <%= f.action :cancel, :as => :link %>
+        </td>
+      </tr>
     <% end %>
-        <%= f.actions do %>
-    <tr>
-      <td>
-        <%= f.action :submit, :as => :button %>
-      </td>
-      <td>
-       <%= f.action :cancel, :as => :link %>
-      </td>
-    </tr>
-
-  <% end %>
       
-<% end %>
+  <% end %>
 </table>
 
 </div>
-<script type="text/javascript">
-  function convertDateTime(dTime){
-      dateTime = dTime.replace(/-/g,"/")      
-      if (dateTime){ 
-        dateTime = new Date(dateTime.toString())
-        dateTime.setDate(dateTime.getDate()+3);
-        return dateTime;
-      }else{
-        return false;
-      }
-  }
-    
-  jQuery(document).ready(function() {
-
-   $(function() {
-    $(".message1").css("display", "none");
-    $("#booking_parking_zone").click(function() {
-        if (this.checked) {
-            $("#booking_pickup_date").datetimepicker('remove');
-            $(".message1").stop(true,true).fadeIn("fast")
-            var startdate = jQuery("#booking_pickup_date").datetimepicker({
-		minuteStep: 15,
-		startDate: "<%= (Time.now + @booking.parking_permit.days).to_formatted_s(:db) %>",
-		autoclose:true
-		}).on('changeDate', function(ev){        
-		  if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
-		  jQuery("#booking_delivery_date").val('')
-	    }});
-
-        }
-        else {
-            $("#booking_pickup_date").datetimepicker('remove');
-            $(".message1").stop(true,true).hide();
-            var startdate = jQuery("#booking_pickup_date").datetimepicker({
-		minuteStep: 15,
-		startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
-		autoclose:true
-		}).on('changeDate', function(ev){        
-		  if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
-		  jQuery("#booking_delivery_date").val('')
-	    }});
-
-       }
-
-    });
-});
- 
-    var startdate = jQuery("#booking_pickup_date").datetimepicker({
-		minuteStep: 15,
-    todayBtn:true,
-		startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
-		autoclose:true
-    		}).on('changeDate', function(ev){        
-		  if (ev.date.valueOf() > convertDateTime(jQuery("#booking_delivery_date").val())){
-		  jQuery("#booking_delivery_date").val('')
-	    }});
-    var enddate = jQuery("#booking_delivery_date").datetimepicker({
-       minuteStep: 15,
-       todayBtn:true,
-       startDate: "<%= (Time.now + OrderSetting.minimum_booking_period.days).to_formatted_s(:db) %>",
-       autoclose:true}).on("click",function(ev){
-
-      var start_date = convertDateTime(jQuery("#booking_pickup_date").val());
-
-      if (start_date)
-      {
-        $('#booking_delivery_date').datetimepicker('setStartDate',start_date);
-      }
-    });
-
-
-    $('#booking_pickup_address_country').change(function() {
-       $.ajax({ 
-        type: "GET",
-        data: {booking_country_id:$(this).val()},
-        url: "/bookings/find_pickup_city",
-        dataType: "script"
-      });
-      });
-   //('#booking_pickup_address_country').trigger('change')
-
-    $('#booking_delivery_address_country').change(function() {
-      $.ajax({ 
-        type: "GET",
-        data: {booking_country_id:$(this).val()},
-        url: "/bookings/find_delivery_city",
-        dataType: "script"
-      });
-      });
-   //('#booking_delivery_address_country').trigger('change')
-});
-</script> 
 
 
 

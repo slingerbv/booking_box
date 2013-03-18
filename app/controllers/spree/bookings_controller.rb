@@ -3,7 +3,6 @@ class Spree::BookingsController < Spree::OrdersController
   before_filter :state_city ,:only=>[:new , :create]
 
   def new
-    debugger
     @booking = Spree::Booking.new({:phone_number => current_user.phone,:email=>current_user.email,:name=>current_user.name,:rating=>session[:booking_rating]})
     respond_to do |format|
         format.html 
