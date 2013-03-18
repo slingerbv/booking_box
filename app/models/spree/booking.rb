@@ -1,18 +1,12 @@
 class Spree::Booking < ActiveRecord::Base
    attr_accessible :name,:pickup_date,:delivery_date,:pickup_address,:delivery_address,:volume,:phone_number,:email,:parking_zone,:length_rental,:recurring,:rating,:pickup_address_streetname_and_number,:pickup_address_postal_code,:pickup_address_city,:pickup_address_country,:delivery_address_streetname_and_number,:delivery_address_postal_code,:delivery_address_city,:delivery_address_country,:booking_type
-
-
    validates :name,:pickup_date,:delivery_date,:email,:phone_number,:pickup_address_streetname_and_number,:delivery_address_streetname_and_number,:length_rental, :presence => true
-
-
    validates_format_of :email, :with => /^.+@.+$/
+   #after_create :notify_booking
 
     def self.search(search)
-
     if search
-     
       where(:pickup_date => (search["start_date"].to_date)..(search["end_date"].to_date))
-     
     else
       scoped
     end
@@ -70,5 +64,20 @@ class Spree::Booking < ActiveRecord::Base
  def parking_permit
     OrderSetting.first.parking_permit
   end
+
+  # def notify_booking
+  #   debugger
+  #   ActionMailer::Base::UserMailer.booking_creation_email.deliver
+  #    #ActionMailer::Base::UserMailer.delay({ :run_at => 2.minutes.from_now}).welcome_email(@booking) 
+  # end
+
+
+
+  # def notify_admin
+  #   admin_role
+  #   @users.each do |user|
+  #     UserMailer.article_creation_email(self,user).deliver
+  #   end
+  # end
 
 end
