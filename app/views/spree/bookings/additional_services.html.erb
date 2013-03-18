@@ -28,17 +28,17 @@
         <%= f.label "place the no-parking zone"  %>
       </td>  
       <td>
-        <%= f.select :parking_place, [ 'in fron of entrance', 'in front of building', 'in traffice direction'], :prompt => 'Select One' %>
+        <%= f.select :parking_place, [ 'In front of entrance', 'In front of building', 'In traffic direction'], :prompt => 'Select One' %>
       </td>
     </tr>
 
 
     <tr>
       <td>
-        <%= f.label "comments"  %>
+        <%= f.label "Comments"  %>
       </td>  
       <td>
-        <%= f.input :comment %>
+        <%= f.input :comment,:label => false %>
       </td>
     </tr>
 
@@ -62,12 +62,12 @@
       <td>
         <%= f.action :submit, :as => :button %>
       </td>
-      <td>
-       <%= link_to "next",booking_payment_booking_path %>
+      <td id="gdl-button">
+       <%= button_to "Next",booking_payment_booking_path,:method => "get",:class=>"gdl-button" %>
       </td>
 
       <td>
-       <%= f.action :cancel, :as => :link %>
+       <%= f.action :cancel %>
       </td>
      
     </tr>
