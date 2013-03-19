@@ -28,7 +28,7 @@
         <%= f.label "place the no-parking zone"  %>
       </td>  
       <td>
-        <%= f.select :parking_place, [ 'In front of entrance', 'In front of building', 'In traffic direction'], :prompt => 'Select One' %>
+       <%= f.select :parking_place, [ 'In front of entrance', 'In front of building', 'In traffic direction'], :prompt => 'Select One' %>
       </td>
     </tr>
 
@@ -48,8 +48,7 @@
         <%= f.label "Packaging"  %>
       </td>  
       <td>
-        <%= f.select :packaging, [ 'Moving boxes', 'Moving boxes specificaly for books ', 'Movin for storage  
-         ','Clothes boxes','','duct tape','unwinder','bubble wrap','matrasse covers for single bed','','matrasse covers for double bed','move covers','Small package','Middle Package','Large Package'], :prompt => 'Select One package' %>
+        <%= f.input :packaging,:label => false %>
       </td>
     </tr>
 

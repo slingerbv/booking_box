@@ -3,7 +3,12 @@ class Spree::BookingsController < Spree::OrdersController
   before_filter :state_city ,:only=>[:new , :create]
 
   def new
-    @booking = Spree::Booking.new({:phone_number => current_user.phone,:email=>current_user.email,:name=>current_user.name,:rating=>session[:booking_rating]})
+    if !current_user.nil? && !current_user.blank?
+      @booking = Spree::Booking.new({:pickup_address_postal_code => current_user.postal_code,:pickup_address_city=>current_user.place,:pickup_address_country=>current_user.country,:street=>current_user.street,:house_number=>current_user.house_number})
+    else
+      @booking = Spree::Booking.new
+    end  
+
 
     respond_to do |format|
         format.html 
@@ -39,6 +44,8 @@ class Spree::BookingsController < Spree::OrdersController
 
   def create
     @booking = Spree::Booking.new(params[:booking])
+    @booking.rating = session[:booking_rating]
+    @booking.pickup_date = session[:booking_pickup_date]
     respond_to do |format|
       if @booking.save
         begin

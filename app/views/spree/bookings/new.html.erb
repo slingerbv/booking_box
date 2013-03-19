@@ -22,162 +22,72 @@
         <%= f.radio_button :booking_type, 'select_time' %> <%= f.label "I would like to start with just 4 weeks and then decice later","I would like to start with just 4 weeks and then decice later" %></p>
       </td> 
     </tr>
+   
+  
     <tr>
       <td>
-        <%= f.label t('booking.recurring') %></br>
+       <%= f.label "delivery_time_slot_and_date_section" ,:id=>"date_pik" %></br>
+      </td>
+
+      <td>
+      <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"delivery_time_slot_and_date_section"} %>         
+      </td>    
+    </tr>    
+
+    <tr>
+      <td>
+        <%= f.label "Delivery address" %></br>
       </td>
       <td>
-        <%= f.input :recurring,:label =>""%>      
+        <%= f.input :delivery_address, :label =>false %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label t('booking.name') %></br>
+        <%= f.label "Street" %> </br>
       </td>
       <td>
-        <%= f.input :name, :label =>false %>      
+        <%= f.input :street, :label =>false %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label t('booking.email')%></br>
+        <%= f.label "House no" %> </br>
       </td>
       <td>
-        <%= f.input :email, :label =>false %>      
+        <%= f.input :house_number, :label =>false %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label "number_of_storage_units",:for=>:number_of_storage_units %></br>
+        <%= f.label "Postal code" %></br>
       </td>
       <td>
-        <%= f.input :rating, :label =>false, :as => :select, :collection => 1..4 %>      
+        <%= f.input :pickup_address_postal_code, :label =>false %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label t('booking.phone_number') %></br>
+        <%= f.label "Place" %></br>
       </td>
       <td>
-        <%= f.input :phone_number, :label =>false %>      
-     </td>    
-    </tr>
-
-
-
-    <tr>
-      <td>
-        <%= f.label t('booking.pickup_address_streetname_and_number') %></br>
-      </td>
-      <td>
-        <%= f.input :pickup_address_streetname_and_number, :label =>false %>      
-      </td>    
-    </tr>
-    <tr>
-      <td>
-        <%= f.label t('booking.pickup_address_postal_code') %></br>
-      </td>
-      <td>
-        <%= f.select :pickup_address_postal_code, options_for_select(@booking_postal_codes.map { |e| e.booking_postal_codes_id })%> 
-      </td>    
-    </tr>
-    <tr>
-      <td>
-        <%= f.label t('booking.pickup_address_country') %></br>
-      </td>
-      <td>   
-        <%=f.select :pickup_address_country, options_for_select(@booking_countries.map { |e| [e.name,e.id] },["Germany","#{@default_country.id}"])%> 
-      </td>    
-    </tr>
-    <tr>
-      <td>
-        <%= f.label t('booking.pickup_address_city') %></br>
-      </td>
-      <td>
-
-         <%= f.select :pickup_address_city,options_for_select(@booking_city.map{ |e| e.name },["Munich"])%> 
-
-      </td>    
-    </tr>
-
-
-    
-    <tr>
-      <td>
-        <%= f.label t('booking.delivery_address_streetname_and_number') %></br>
-      </td>
-      <td>
-        <%= f.input :delivery_address_streetname_and_number, :label =>false %>      
+        <%= f.input :pickup_address_city, :label =>false %>      
       </td>    
     </tr>
 
     <tr>
       <td>
-        <%= f.label t('booking.delivery_address_postal_code') %></br>
+        <%= f.label "Country" %></br>
       </td>
       <td>
-         <%= f.select :delivery_address_postal_code, options_for_select(@booking_postal_codes.map { |e| e.booking_postal_codes_id })%> 
+        <%= f.text_field :pickup_address_country, :label =>false %>   
       </td>    
     </tr>
 
-    <tr>
-      <td>
-        <%= f.label t('booking.delivery_address_country') %></br>
-      </td>
-      <td>
-       <%=f.select :delivery_address_country, options_for_select(@booking_countries.map { |e| [e.name,e.id] },["Germany","#{@default_country.id}"])%> 
-      </td>    
-    </tr>
-    
-    <tr>
-      <td>
-        <%= f.label t('booking.delivery_address_city') %></br>
-      </td>
-      <td>
-        <%= f.select :delivery_address_city,options_for_select(@booking_city.map{ |e| e.name },"Munich")%>
-      </td>    
-    </tr>
-
-    <tr>
-      <td>
-        <%= f.label "No-parking zone"  %></br>
-      </td>
-       <td>
-        <%= f.input :parking_zone, :label =>""%> 
-        <!-- <div class="message1"><span style="color:red"><%#= "you need"+' '+"#{@booking.parking_permit}"+' '+"days to request a parking permit" %><small></small></span></div> -->
-      </td>    
-    </tr> 
-
-    <tr>
-      <td>
-        <%= f.label "pick_up_date_and_time_slot" %></br>
-      </td>
-      <td>
-        <%= f.input :pickup_date, :label =>false ,:input_html =>{:class=>"booking_pick_up_date_and_time_slot"} %>         
-      </td>    
-    </tr>
-
-    <tr>
-      <td>
-        <%= f.label "delivery_date_and_time_slot" %></br>
-      </td>
-      <td>
-        <%= f.input :delivery_date, :label =>false,:input_html =>{:class=>"booking_delivery_date_and_time_slot"} %>            
-      </td>    
-    </tr> 
-
-    <tr>
-      <td>
-        <%= f.label t('booking.length_of_rental') %></br>
-      </td>
-      <td>
-        <%= f.input :length_rental, :label =>false %>      
-      </td>    
-    </tr>   
   
     <%= f.actions do %>
       <tr>
@@ -198,5 +108,21 @@
 
 
 
+<script>
+ $("#booking_delivery_date").hide();
+ $("#date_pik").hide();
+ $("input[type='radio']").change(function(){
+  if($(this).val()=="every_month")
+   {
+    $("#booking_delivery_date").show();
+    $("#date_pik").show();
+   }
+  else
+   {
+    $("#booking_delivery_date").hide(); 
+    $("#date_pik").hide();
+   }
 
+});
 
+</script>

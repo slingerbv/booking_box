@@ -14,8 +14,10 @@
   <%= f.inputs :name => "Payment Options:" do %>
     <tr>
       <td>
-        <%= f.label "upload"  %>
+        <%= f.label "upload passport picture"  %>
       </td>
+     </tr>
+     <tr> 
       <td>
         
         <%= image_tag @booking_photo.photo.url(:thumb) %>  
@@ -28,10 +30,6 @@
     <tr>
       <td>
         <%= f.action :submit, :as => :button %>
-      </td>
-    
-      <td>
-       <%= f.action :cancel %>
       </td>
     </tr>
 
