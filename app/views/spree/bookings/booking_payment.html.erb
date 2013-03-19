@@ -1,4 +1,44 @@
-Total amount : </br>
-Upload photo : </br>
 
-Thank you for your order, confirmation sent			
+<% content_for :head do %>
+<% end %>
+
+<% content_for :page_title do %>
+  <%= @site_page.page_title rescue '' %>
+<% end %>
+
+
+<div class="booking_form">
+<table>
+<%= semantic_form_for @booking, :html => { :multipart => true },:url=>post_additional_services_booking_path do |f| %>
+
+  <%= f.inputs :name => "Payment Options:" do %>
+    <tr>
+      <td>
+        <%= f.label "upload"  %>
+      </td>
+      <td>
+        
+        <%= image_tag @booking_photo.photo.url(:thumb) %>  
+        <%= f.file_field :photo, :label =>"" %> 
+      </td>    
+    </tr> 
+
+    <% end %>
+        <%= f.actions do %>
+    <tr>
+      <td>
+        <%= f.action :submit, :as => :button %>
+      </td>
+    
+      <td>
+       <%= f.action :cancel %>
+      </td>
+    </tr>
+
+  <% end %>
+      
+<% end %>
+</table>
+
+</div>
+

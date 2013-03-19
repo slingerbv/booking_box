@@ -9,6 +9,7 @@ Spree::Core::Engine.routes.append do
       get "additional_services"
       get "booking_payment"
       post "post_additional_services"
+      post "post_booking_payment"
     end
   end
   namespace :admin do

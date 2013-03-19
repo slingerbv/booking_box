@@ -6,6 +6,7 @@
 
     $( "#booking_pickup_date").datetimepicker(); 
     $( "#booking_delivery_date").datetimepicker(); 
+    $( "#user_date_of_birth").datetimepicker(); 
 
 
     $('#booking_pickup_address_country').change(function() {
@@ -28,5 +29,7 @@
         });
      //('#booking_delivery_address_country').trigger('change')
 
+
+     
 
   });

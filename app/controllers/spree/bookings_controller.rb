@@ -82,11 +82,23 @@ class Spree::BookingsController < Spree::OrdersController
   end 
 
   def post_additional_services
-    puts "d"
+
+    @booking = Spree::Booking.find(params[:id])
+    respond_to do |format|
+      if @booking.update_attributes(params[:booking])
+        format.html { redirect_to(booking_payment_booking_path, :notice => 'Email was successfully updated.') }
+      else
+        format.html { render :action => "additional_services" }
+      end
+    end
   end  
 
   def booking_payment
+    @booking = Spree::Booking.new
+    @booking_photo = Spree::Booking.find(params[:id])
   end  
+
+
 
   protected
 
