@@ -16,14 +16,12 @@
 
       <td> 
         <p style= "font-size:14px;margin-bottom:-13px;">You have two choices</p> 
-       <p style= "display: inline-block">
-
-        <%= f.radio_button :booking_type, 'every_month' %> <%= f.label "I know how long I would like to store my items", "I know how long I would like to store my items" %>
-        <%= f.radio_button :booking_type, 'select_time' %> <%= f.label "I would like to start with just 4 weeks and then decice later","I would like to start with just 4 weeks and then decice later" %></p>
+        <p style= "display: inline-block">
+        <%= f.radio_button :booking_type, 'every_month' %>I know how long I would like to store my items 
+        <%= f.radio_button :booking_type, 'select_time' %> I would like to start with just 4 weeks and then decice later</p>
       </td> 
     </tr>
-   
-  
+    
     <tr>
       <td>
        <%= f.label "delivery_time_slot_and_date_section" ,:id=>"date_pik" %></br>
@@ -34,6 +32,18 @@
       </td>    
     </tr>    
 
+
+    <tr>
+      <td> 
+       <p style= "font-size:14px;margin-bottom:-13px;">Select Box delivery time</p> 
+        <p style= "display: inline-block">
+          <%= f.radio_button :box_delivery_time, '8.30 to 9.30' %> between 8.30-9.30
+          <%= f.radio_button :box_delivery_time, '13.30 to 14.30' %> between 13.30-14.30
+          <%= f.radio_button :box_delivery_time, '17.00 to 18.30' %> between 17.00-18.30
+        </p>
+      </td> 
+    </tr>
+
     <tr>
       <td>
         <%= f.label "Delivery address" %></br>
@@ -42,6 +52,8 @@
         <%= f.input :delivery_address, :label =>false %>      
       </td>    
     </tr>
+
+
 
     <tr>
       <td>
@@ -126,3 +138,12 @@
 });
 
 </script>
+
+
+<style>
+.Zebra_DatePicker{
+  display: block;
+    left: 873px !important;
+    top: 399px !important;
+}    
+</style>

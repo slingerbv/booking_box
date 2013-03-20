@@ -48,11 +48,6 @@ class Spree::BookingsController < Spree::OrdersController
     @booking.pickup_date = session[:booking_pickup_date]
     respond_to do |format|
       if @booking.save
-        begin
-          ActionMailer::Base::UserMailer.booking_creation_email(@booking).deliver 
-        rescue
-          puts "there is some error"
-        end  
         format.html { redirect_to(booking_product_booking_path(@booking)) }
       else
         format.html { render :action => "new" }
@@ -79,6 +74,24 @@ class Spree::BookingsController < Spree::OrdersController
   end
 
   def booking_product
+    # @booking = Spree::Booking.find(params[:id])
+    # @diff_of_days = (@booking.delivery_date.to_date - @booking.pickup_date.to_date).to_i
+    # @all_number_of_days = Spree::Product.all.map(&:number_of_days).compact.sort
+    # until @diff_of_days == 0  do
+    #   index_count = 0
+    #   product_array = Array.new
+    #   @all_number_of_days.each_with_index do |number_of_day,index|
+    #     index_count = index
+    #     if (number_of_day > @diff_of_days)
+    #       break
+    #     end  
+    #   end 
+    #   product = Hash.new
+    #   product[:product] = @all_number_of_days[index_count - 1]
+    #   product[:qty] = @diff_of_days / @all_number_of_days[index_count - 1]
+    #   product_array << product
+    #   @diff_of_days = @diff_of_days % @all_number_of_days[index_count - 1]
+    # end
     respond_to do |format|
      format.html
     end
@@ -93,6 +106,13 @@ class Spree::BookingsController < Spree::OrdersController
     @booking = Spree::Booking.find(params[:id])
     respond_to do |format|
       if @booking.update_attributes(params[:booking])
+        if params[:last_step] == ""
+          begin
+            ActionMailer::Base::UserMailer.booking_creation_email(@booking).deliver 
+          rescue
+            puts "there is some error"
+          end 
+        end
         format.html { redirect_to(booking_payment_booking_path, :notice => 'Email was successfully updated.') }
       else
         format.html { render :action => "additional_services" }

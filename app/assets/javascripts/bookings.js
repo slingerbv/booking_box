@@ -3,11 +3,13 @@
  
 
   jQuery(document).ready(function() { 
-
-    $( "#booking_pickup_date").datetimepicker(); 
-    $( "#booking_delivery_date").datetimepicker(); 
-    $( "#user_date_of_birth").datetimepicker(); 
-
+    $('#booking_pickup_date').Zebra_DatePicker();
+    $('#booking_delivery_date').Zebra_DatePicker();
+    $('#user_date_of_birth').Zebra_DatePicker();
+    //$("#booking_pickup_date").datepicker({dateFormat: 'yyyy-mm-dd'});
+    //$( "#booking_pickup_date").datetimepicker(); 
+    //$( "#booking_delivery_date").datepicker({dateFormat: 'yyyy-mm-dd'});
+    //$( "#user_date_of_birth").datepicker({dateFormat: 'yyyy-mm-dd'});
 
     $('#booking_pickup_address_country').change(function() {
          $.ajax({ 

@@ -24,15 +24,15 @@
         <%= f.file_field :photo, :label =>"" %> 
       </td>    
     </tr> 
-
     <% end %>
         <%= f.actions do %>
     <tr>
       <td>
+        <%= hidden_field_tag 'last_step' %>
         <%= f.action :submit, :as => :button %>
       </td>
     </tr>
-
+  
   <% end %>
       
 <% end %>
