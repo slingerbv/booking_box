@@ -102,13 +102,13 @@ class Spree::BookingsController < Spree::OrdersController
   end 
 
   def post_additional_services
-
+  
     @booking = Spree::Booking.find(params[:id])
     respond_to do |format|
       if @booking.update_attributes(params[:booking])
         if params[:last_step] == ""
           begin
-            ActionMailer::Base::UserMailer.booking_creation_email(@booking).deliver 
+            ActionMailer::Base::UserMailer.booking_creation_email(@booking,@current_user).deliver 
           rescue
             puts "there is some error"
           end 
