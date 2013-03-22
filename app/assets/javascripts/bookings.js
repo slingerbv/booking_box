@@ -5,7 +5,8 @@
   jQuery(document).ready(function() { 
     $('#booking_pickup_date').Zebra_DatePicker();
     $('#booking_delivery_date').Zebra_DatePicker();
-    $('#user_date_of_birth').Zebra_DatePicker();
+    $('#user_date_of_birth').Zebra_DatePicker({time_duration:''});
+ 
     //$("#booking_pickup_date").datepicker({dateFormat: 'yyyy-mm-dd'});
     //$( "#booking_pickup_date").datetimepicker(); 
     //$( "#booking_delivery_date").datepicker({dateFormat: 'yyyy-mm-dd'});

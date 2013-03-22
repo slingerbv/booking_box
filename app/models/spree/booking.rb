@@ -3,6 +3,7 @@ class Spree::Booking < ActiveRecord::Base
    #validates :name,:pickup_date,:delivery_date,:email,:phone_number,:pickup_address_streetname_and_number,:delivery_address_streetname_and_number,:length_rental, :presence => true
    #validates_format_of :email, :with => /^.+@.+$/
    #after_create :notify_booking
+   #validates :photo
    has_attached_file :photo,:styles => {
       :thumb=> "100x100#",
       :small  => "150x150>" }  

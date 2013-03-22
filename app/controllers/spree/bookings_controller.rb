@@ -46,6 +46,7 @@ class Spree::BookingsController < Spree::OrdersController
     @booking = Spree::Booking.new(params[:booking])
     @booking.rating = session[:booking_rating]
     @booking.pickup_date = session[:booking_pickup_date]
+    @booking.box_pickup_time = session[:box_pickup_time]
     respond_to do |format|
       if @booking.save
         format.html { redirect_to(booking_product_booking_path(@booking)) }
