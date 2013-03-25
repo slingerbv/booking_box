@@ -1,6 +1,6 @@
 class Spree::BookingsController < Spree::OrdersController
   helper 'spree/base'
-  before_filter :state_city ,:only=>[:new , :create]
+  # before_filter :state_city ,:only=>[:new , :create]
 
   def new
     if !current_user.nil? && !current_user.blank?
