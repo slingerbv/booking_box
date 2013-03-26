@@ -49,7 +49,7 @@ class Spree::BookingsController < Spree::OrdersController
     @booking.box_pickup_time = session[:box_pickup_time]
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to(booking_product_booking_path(@booking)) }
+        format.html { redirect_to(additional_services_booking_path(@booking)) }
       else
         format.html { render :action => "new" }
       end
